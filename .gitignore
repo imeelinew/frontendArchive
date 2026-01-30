@@ -1,0 +1,282 @@
+# ==============================
+# 操作系统生成的文件
+# ==============================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ==============================
+# 编辑器和 IDE
+# ==============================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+.history/
+
+# JetBrains IDE (WebStorm, IntelliJ, PyCharm 等)
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.idea_modules/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vsix
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*.swn
+Session.vim
+.netrwhist
+
+# Emacs
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+
+# ==============================
+# 依赖目录
+# ==============================
+
+# Node.js
+node_modules/
+jspm_packages/
+bower_components/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+ENV/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# ==============================
+# 构建输出
+# ==============================
+
+# 通用
+dist/
+build/
+out/
+target/
+.cache/
+tmp/
+temp/
+
+# Next.js
+.next/
+
+# Nuxt.js
+.nuxt/
+.output/
+
+# Gatsby
+public/
+
+# Vite
+dist-ssr/
+
+# UmiJS
+.umi/
+.umi-production/
+.umi-test/
+
+# Webpack
+.webpack/
+
+# Parcel
+.parcel-cache/
+
+# ==============================
+# 日志文件
+# ==============================
+
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ==============================
+# 环境和配置文件
+# ==============================
+
+# 环境变量
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+
+# ==============================
+# 包管理器锁文件 (根据项目需要选择保留)
+# ==============================
+
+# 如需忽略锁文件，取消下面的注释
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ==============================
+# 测试和覆盖率
+# ==============================
+
+coverage/
+.nyc_output/
+*.lcov
+.coverage
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# Jest
+jest.config.js.bak
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Playwright
+playwright-report/
+playwright/.cache/
+
+# ==============================
+# TypeScript
+# ==============================
+
+*.tsbuildinfo
+.tsbuildinfo
+
+# ==============================
+# 杂项
+# ==============================
+
+# 压缩文件
+*.7z
+*.dmg
+*.gz
+*.iso
+*.rar
+*.tar
+*.zip
+
+# 备份文件
+*.bak
+*.backup
+*.old
+*.orig
+
+# 临时文件
+*.tmp
+*.temp
+.temp/
+.tmp/
+
+# SSH 密钥
+*.pem
+*.key
+id_rsa
+id_dsa
+
+# 证书
+*.crt
+*.cer
+*.der
+*.p12
+*.pfx
+
+# ==============================
+# 框架和工具特定
+# ==============================
+
+# Firebase
+.firebase/
+firebase-debug.log
+.firebaserc
+
+# Serverless
+.serverless/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Docker
+.docker/
+
+# ESLint
+.eslintcache
+
+# Stylelint
+.stylelintcache
+
+# Prettier
+.prettiercache
+
+# ==============================
+# 文档和资源
+# ==============================
+
+# API 文档
+_roadhog-api-doc/
+
+# 截图
+screenshot/
+screenshots/
