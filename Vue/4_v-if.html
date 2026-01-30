@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <div v-if="isLogin">用户名</div>
+        <div v-else>请登录</div> -->
+        <div v-if="loginName=='admin'">管理员</div>
+        <div v-else-if="loginName=='user'">普通用户</div>
+        <div v-else>未登录</div>
+        <!-- v-show是通过dispaly控制是否隐藏,而v-if是判断是否渲染,v-if更彻底,v-show性能更好 -->
+        <!-- 如果频繁切换建议使用v-show,如果一次性渲染建议用v-if -->
+        <div v-show="isLogin">已经成功登录</div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                isLogin: true,
+                loginName: "admin"
+                //admin是管理员 user是普通用户 no是未登录
+            }
+        })
+    </script>
+</body>
+
+</html>

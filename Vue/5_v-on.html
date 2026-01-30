@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box1 {
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+
+        .box2 {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+        }
+
+        .box3 {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{str}}</div>
+        <!-- <button v-on:click="changeStr">按钮</button> -->
+        <!-- 可以缩写为下面 -->
+        <button @click="changeStr">按钮</button>
+
+        <!-- 这里会导致事件冒泡 -->
+        <div class="box1" @click="changeBox1">
+            <div class="box2" @click="changeBox2">
+                <!-- 加个.stop就可以阻止事件冒泡,与line65效果相同 -->
+                <div class="box3" @click.stop="changeBox3"></div>
+            </div>
+        </div>
+        <!-- .prevent可以阻止默认行为,与line72效果相同 -->
+        <div @contextmenu.prevent="menuFun">hello,world</div>
+
+        <!-- a标签也可以阻止跳转 -->
+        <a href="https://www.baidu.com" @click.prevent="linkFun">百度</a>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                str: "hello,world"
+            },
+            methods: {
+                changeStr() {
+                    console.log("按钮触发")
+                    this.str = "你好世界"
+                },
+                changeBox1() {
+                    console.log("box1触发")
+                },
+                changeBox2() {
+                    console.log("box2触发")
+                },
+                changeBox3(e) {
+                    // 阻止事件冒泡
+                    // e.stopPropagation();
+                    console.log("box3触发")
+                },
+                menuFun(e){
+                    // 阻止默认行为
+                    // e.preventDefault();
+                    console.log("右键触发")
+                },
+                linkFun(e){
+                    // 阻止默认行为
+                    // e.preventDefault();
+                    console.log("链接触发")
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

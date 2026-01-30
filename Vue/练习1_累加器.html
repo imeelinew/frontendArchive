@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style></style>
+</head>
+<body>
+    <div id="app">
+        <div style="font-size: 40px;" v-if="isShow">{{count}}</div>
+        <div style="font-size: 40px;" v-if="isMax">无法再继续增加</div>
+        <button @click="add">按钮</button>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                isMax: false,
+                isShow:true,
+                count:0
+            },
+            methods:{
+                add(){
+                    this.count++;
+                    if(this.count>=10){
+                        this.isMax=true;
+                        this.isShow=false;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

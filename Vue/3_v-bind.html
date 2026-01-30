@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box1{
+            color: red;
+        }
+        .box2{
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- v-bind可以将属性值解析成变量 -->
+        <div v-bind:class="className">hello,world</div>
+        <!-- 可以直接写: -->
+        <div :class="className">hello,world</div>
+        <div :class="{box1:isActive}">你好世界</div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                className:"box1",
+                className2:"box2",
+                isActive:true
+            }
+        })
+    </script>
+</body>
+</html>
