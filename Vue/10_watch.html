@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{num}}</div>
+        <input type="text" v-model.number="num">
+        <button @click="num++">按钮</button>
+        <button @click="changeArr">改变数组</button>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                num: 0,
+                arr: [1, 2, 3, 4]
+            },
+            methods: {
+                changeArr() {
+                    // this.arr = [1, 2, 3, 4, 5];
+                    // this.arr[0] = 5;  // ❌ 这样写 Vue 2 检测不到，watch 不会触发
+                    this.$set(this.arr, 0, 5);  // ✅ 用 $set 修改，watch 才能触发
+                }
+            },
+            watch: {
+                //监听data中数据变化 监听谁就用谁命名
+                //只要num变了 就调用num方法
+                //默认只能监听基本数据类型 如果想监听数组或者对象变化 需要设置deep:true
+                num(newVal, oldVal) {
+                    console.log(newVal, oldVal);
+                },
+                arr: {
+                    //deep是深度监听
+                    deep: true,
+                    handler(newVal, oldVal) {
+                        console.log("数组变了")
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <span>{{num1}}</span> + <span>{{num2}}</span> = <span>{{sum}}</span>
+
+        <button @click=changeNum1>num1+1</button>
+        <button @click=changeNum2>num2+1</button>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                num1: 1,
+                num2: 2,
+                num3: 3,
+                // fullName 示例用到的数据
+                firstName: '张',
+                lastName: '三'
+            },
+            methods: {
+                changeNum1() {
+                    this.num1++;
+                },
+                changeNum2() {
+                    this.num2++;
+                }
+            },
+
+            /*
+                computed 计算属性：
+                
+                1. 是什么？
+                   - 根据已有的数据，计算出一个新的数据
+                   - 写起来是个函数，用起来当变量用
+                
+                2. 有什么好处？
+                   - 有缓存：只有依赖的数据变了，才会重新计算
+                   - 如果依赖的数据没变，直接返回上次的结果，不会重复计算，性能更好
+                
+                3. 和 methods 的区别？
+                   - methods：每次调用都会重新执行
+                   - computed：有缓存，依赖不变就不重新算
+                
+                4. 下面的例子：
+                   - sum 依赖 num1 和 num2
+                   - 只有 num1 或 num2 变了，sum 才会重新计算
+                   - num3 变了不会影响 sum（因为 sum 没用到 num3）
+                
+                5. 两种写法：
+                   - 简写：直接写成函数，只能读取，不能修改（只有 get）
+                   - 完整写法：写成对象，包含 get 和 set，既能读取也能修改
+                
+                6. get 和 set 是什么？
+                   - get：读取时触发，必须 return 一个值
+                   - set：修改时触发，会收到新值作为参数
+                   - 简写形式其实就是只有 get 的完整写法
+            */
+            computed: {
+                // ========== 简写形式 ==========
+                // 只能读取，不能修改
+                // 这种写法等于只写了 get
+                sum() {
+                    return this.num1 + this.num2;
+                },
+
+                // ========== 完整写法（带 get 和 set）==========
+                /*
+                    fullName 是一个可读可写的计算属性
+                    - 读取 fullName 时：触发 get，返回 firstName + lastName
+                    - 修改 fullName 时：触发 set，把新值拆开分别赋给 firstName 和 lastName
+                */
+                fullName: {
+                    // get：读取时触发
+                    // 比如在模板里用 {{fullName}}，或者在 JS 里读取 this.fullName
+                    get() {
+                        return this.firstName + ' ' + this.lastName;
+                    },
+                    // set：修改时触发
+                    // 比如执行 this.fullName = '李 四'，newValue 就是 '李 四'
+                    // set 里面通常要去修改它依赖的那些数据
+                    set(newValue) {
+                        // 把传入的值按空格拆分
+                        const names = newValue.split(' ');
+                        // 分别赋值给 firstName 和 lastName
+                        this.firstName = names[0];
+                        this.lastName = names[1];
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

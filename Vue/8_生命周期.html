@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue 生命周期</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4ecf7 50%, #dae5f4 100%);
+            min-height: 100vh;
+            padding: 30px;
+            color: #1e293b;
+        }
+
+        #app {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 标题样式 */
+        .title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.2));
+            }
+
+            to {
+                filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.3));
+            }
+        }
+
+        .title p {
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        /* 演示区域 */
+        .demo-section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .demo-section h2 {
+            color: #3b82f6;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .counter {
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 15px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            color: #334155;
+        }
+
+        .counter:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+        }
+
+        .counter span {
+            color: #3b82f6;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-update {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.35);
+        }
+
+        .btn-update:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.45);
+        }
+
+        .btn-destroy {
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.35);
+        }
+
+        .btn-destroy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.45);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* 生命周期卡片网格 */
+        .lifecycle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .lifecycle-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .lifecycle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .lifecycle-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 不同阶段的颜色 */
+        .card-create::before {
+            background: linear-gradient(180deg, #22c55e, #16a34a);
+        }
+
+        .card-mount::before {
+            background: linear-gradient(180deg, #3b82f6, #2563eb);
+        }
+
+        .card-update::before {
+            background: linear-gradient(180deg, #f59e0b, #d97706);
+        }
+
+        .card-destroy::before {
+            background: linear-gradient(180deg, #ef4444, #dc2626);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .card-create .card-icon {
+            background: rgba(34, 197, 94, 0.15);
+        }
+
+        .card-mount .card-icon {
+            background: rgba(59, 130, 246, 0.15);
+        }
+
+        .card-update .card-icon {
+            background: rgba(245, 158, 11, 0.15);
+        }
+
+        .card-destroy .card-icon {
+            background: rgba(239, 68, 68, 0.15);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .card-create .card-title {
+            color: #16a34a;
+        }
+
+        .card-mount .card-title {
+            color: #2563eb;
+        }
+
+        .card-update .card-title {
+            color: #d97706;
+        }
+
+        .card-destroy .card-title {
+            color: #dc2626;
+        }
+
+        .card-timing {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .card-access {
+            background: rgba(0, 0, 0, 0.03);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #475569;
+            margin-bottom: 12px;
+        }
+
+        .card-usage {
+            font-size: 0.9rem;
+            color: #334155;
+            padding-left: 15px;
+            border-left: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .card-usage strong {
+            color: #3b82f6;
+        }
+
+        /* 提示区域 */
+        .tips {
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .tips p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .tips strong {
+            color: #3b82f6;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 标题 -->
+        <div class="title">
+            <h1>🌱 Vue 生命周期</h1>
+            <p>每个 Vue 实例都会经历一个完整的生命过程，在特定节点 Vue 会自动调用相应的钩子函数</p>
+        </div>
+
+        <!-- 演示区域 -->
+        <div class="demo-section">
+            <h2>🎮 交互演示</h2>
+            <div class="counter">
+                计数器: <span>{{ count }}</span>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-update" @click="updateData">
+                    🔄 更新数据 (触发 Update 钩子)
+                </button>
+                <button class="btn btn-destroy" @click="destroyInstance">
+                    💥 销毁实例 (触发 Destroy 钩子)
+                </button>
+            </div>
+        </div>
+
+        <!-- 生命周期卡片 -->
+        <div class="lifecycle-grid">
+            <!-- 创建阶段 -->
+            <div class="lifecycle-card card-create">
+                <div class="card-header">
+                    <div class="card-icon">🌱</div>
+                    <div class="card-title">beforeCreate</div>
+                </div>
+                <div class="card-timing">实例初始化之前调用</div>
+                <div class="card-access">⚠️ data 和 methods 还未初始化，无法访问</div>
+                <div class="card-usage"><strong>用途：</strong>可以在此添加 loading 事件</div>
+            </div>
+
+            <div class="lifecycle-card card-create">
+                <div class="card-header">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">created</div>
+                </div>
+                <div class="card-timing">实例创建完成后调用</div>
+                <div class="card-access">✅ data 和 methods 已初始化完成，可以访问和操作</div>
+                <div class="card-usage"><strong>用途：</strong>常用于发起 Ajax 请求获取初始数据</div>
+            </div>
+
+            <!-- 挂载阶段 -->
+            <div class="lifecycle-card card-mount">
+                <div class="card-header">
+                    <div class="card-icon">📋</div>
+                    <div class="card-title">beforeMount</div>
+                </div>
+                <div class="card-timing">挂载之前调用</div>
+                <div class="card-access">📝 模板已编译完成，但尚未挂载到页面 DOM 中</div>
+                <div class="card-usage"><strong>用途：</strong>可以访问 data，但 $el 还不可用</div>
+            </div>
+
+            <div class="lifecycle-card card-mount">
+                <div class="card-header">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">mounted</div>
+                </div>
+                <div class="card-timing">挂载完成后调用</div>
+                <div class="card-access">✅ Vue 实例已挂载到 DOM，可以访问和操作 DOM 元素</div>
+                <div class="card-usage"><strong>用途：</strong>操作 DOM、初始化第三方库（图表、地图等）</div>
+            </div>
+
+            <!-- 更新阶段 -->
+            <div class="lifecycle-card card-update">
+                <div class="card-header">
+                    <div class="card-icon">⏳</div>
+                    <div class="card-title">beforeUpdate</div>
+                </div>
+                <div class="card-timing">数据更新时调用，发生在虚拟 DOM 重新渲染之前</div>
+                <div class="card-access">📸 此时可以访问更新前的 DOM 状态</div>
+                <div class="card-usage"><strong>用途：</strong>可以在更新前移除已添加的事件监听器</div>
+            </div>
+
+            <div class="lifecycle-card card-update">
+                <div class="card-header">
+                    <div class="card-icon">✅</div>
+                    <div class="card-title">updated</div>
+                </div>
+                <div class="card-timing">数据更新完成，DOM 也重新渲染完成后调用</div>
+                <div class="card-access">📸 此时可以访问更新后的 DOM 状态</div>
+                <div class="card-usage"><strong>用途：</strong>执行依赖于更新后 DOM 的操作（避免修改状态）</div>
+            </div>
+
+            <!-- 销毁阶段 -->
+            <div class="lifecycle-card card-destroy">
+                <div class="card-header">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-title">beforeDestroy</div>
+                </div>
+                <div class="card-timing">实例销毁之前调用</div>
+                <div class="card-access">✅ 实例仍然完全可用，data、methods 等都可以正常访问</div>
+                <div class="card-usage"><strong>用途：</strong>清除定时器、取消订阅、解绑事件等</div>
+            </div>
+
+            <div class="lifecycle-card card-destroy">
+                <div class="card-header">
+                    <div class="card-icon">💀</div>
+                    <div class="card-title">destroyed</div>
+                </div>
+                <div class="card-timing">实例销毁后调用</div>
+                <div class="card-access">❌ 所有指令解绑、事件监听器移除、子实例也被销毁</div>
+                <div class="card-usage"><strong>用途：</strong>做最后的清理工作或发送统计信息</div>
+            </div>
+        </div>
+
+        <!-- 提示 -->
+        <div class="tips">
+            <p>💡 <strong>提示：</strong>打开浏览器控制台 (F12) 查看各个生命周期钩子的触发顺序</p>
+        </div>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                count: 0
+            },
+
+            // ===== 创建阶段 =====
+            beforeCreate() {
+                console.log("%c beforeCreate ", "background: #22c55e; color: white; border-radius: 3px;", "实例初始化之前");
+            },
+            created() {
+                console.log("%c created ", "background: #22c55e; color: white; border-radius: 3px;", "实例创建完成");
+            },
+
+            // ===== 挂载阶段 =====
+            beforeMount() {
+                console.log("%c beforeMount ", "background: #3b82f6; color: white; border-radius: 3px;", "挂载之前");
+            },
+            mounted() {
+                console.log("%c mounted ", "background: #3b82f6; color: white; border-radius: 3px;", "挂载完成");
+            },
+
+            // ===== 更新阶段 =====
+            beforeUpdate() {
+                console.log("%c beforeUpdate ", "background: #f59e0b; color: white; border-radius: 3px;", "更新之前");
+            },
+            updated() {
+                console.log("%c updated ", "background: #f59e0b; color: white; border-radius: 3px;", "更新完成");
+            },
+
+            // ===== 销毁阶段 =====
+            beforeDestroy() {
+                console.log("%c beforeDestroy ", "background: #ef4444; color: white; border-radius: 3px;", "销毁之前");
+            },
+            destroyed() {
+                console.log("%c destroyed ", "background: #ef4444; color: white; border-radius: 3px;", "销毁完成");
+            },
+
+            methods: {
+                updateData() {
+                    this.count++;
+                    console.log("📊 数据已更新，count =", this.count);
+                },
+                destroyInstance() {
+                    this.$destroy();
+                    console.log("💥 实例已销毁，按钮将不再响应");
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
