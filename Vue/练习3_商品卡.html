@@ -5,18 +5,20 @@
     <meta charset="UTF-8">
     <title>商品卡</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        .container{
+
+        .container {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             font-size: 14px;
         }
-        .item-card{
+
+        .item-card {
             padding: 20px;
             width: 270px;
             /* height: 300px; */
@@ -28,16 +30,18 @@
             justify-content: space-around;
             gap: 10px;
         }
-        img{
+
+        img {
             width: 200px;
         }
-        .prod-name{
+
+        .prod-name {
             font-weight: bold;
             white-space: nowrap;
-            overflow: hidden;
             text-overflow: ellipsis;
         }
-        .brief .price{
+
+        .brief .price {
             text-align: left;
         }
     </style>
@@ -66,7 +70,7 @@
             mounted() {
                 ajax('GET', 'http://shop-api.edu.koobietech.com/prod/tagProdList', (res) => {
                     let result = JSON.parse(res);
-                    this.productList = result.data[0].productDtoList; 
+                    this.productList = result.data[0].productDtoList;
                 })
             }
         })
