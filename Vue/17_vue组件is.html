@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <div is="box2"></div>
+            <!-- <box1></box1>
+            <box2></box2> -->
+        </div>
+    </div>
+    <template id="temp1">
+        <div>
+            <h1>组件一</h1>
+        </div>
+    </template>
+    <template id="temp2">
+        <div>
+            <h1>组件二</h1>
+        </div>
+    </template>
+    <script src="./js/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            components:{
+                "box1":{
+                    template:"#temp1"
+                },
+                "box2":{
+                    template:"#temp2"
+                }
+            }
+        })
+    </script>
+</body>
+</html>

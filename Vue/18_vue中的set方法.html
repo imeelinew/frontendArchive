@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item,key) in obj">
+                {{key}}:{{item}}
+            </li>
+        </ul>
+        <button @click="addFun">添加</button>
+    </div>
+    <script src="./js/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                obj: {
+                    name: "张三",
+                    age: 18,
+                    sex: "男"
+                }
+            },
+            methods:{
+                addFun(){
+                    //  向obj中添加一个属性vue无法检测到
+                    console.log("click");
+                    // this.obj.name = "李四";
+                    // 向obj中添加一个属性
+                    // this.obj.school = "清华大学";
+                    // 解决方法：使用vue提供的set方法
+                    // Vue.set(要修改对象,属性名,属性值)
+                    Vue.set(this.obj,"school","清华大学");
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

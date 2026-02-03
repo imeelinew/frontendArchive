@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="vue.js"></script>
+    <div id="app">
+        <h1 @click="clickFatherElement">这是父组件</h1>
+        <box></box>
+    </div>
+
+    <template id="box-template">
+        <h1 @click="clickChildElement">这是子组件</h1>
+    </template>
+    <script>
+        new Vue({
+            el: '#app',
+            components: {
+                "box": {
+                    template: '#box-template',
+                    methods: {
+                        clickChildElement() {
+                            console.log("子组件被点击了")
+                        }
+                    }
+                }
+            },
+            methods: {
+                clickFatherElement() {
+                    console.log("父组件被点击了")
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

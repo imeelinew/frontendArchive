@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box">
+            <!-- 父组件接受子组件传递过来的通知 -->
+             <!-- 通过自定义事件的方式 -->
+              <!-- html中不识别驼峰命名 所以在子组件中触发事件时 要使用短横线命名 -->
+            <box v-bind:val="i" v-on:child-change="changeFun"></box>
+            <h1>+</h1>
+            <box v-bind:val="j"></box>
+            <div><h1>=</h1></div>
+            <div><h1>{{i+j}}</h1></div>
+        </div>
+    </div>
+    <template id="box-temp">
+        <div>
+            <h1 @click="addFun">{{num2}}</h1>
+        </div>
+    </template>
+    <script src="./js/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                i:10,
+                j:20
+            },
+            methods:{
+                // 父组件中定义的方法 用来接受子组件传递过来的通知
+                changeFun(a,b){
+                    console.log("子组件通知父组件了",a,b);
+                }
+            },
+            components:{
+                "box":{
+                    template:"#box-temp",
+                    data(){
+                        return{
+                            // 子组件中可以使用props接受父组件传参
+                            // 为了避免直接修改props中的值 所以在data中重新定义一个属性接受props中的值
+                            num2:this.val
+                        }
+                    },
+                    // 组件传参 子组件接收父组件传参通过props属性的方式
+                    // 可以接受多个参数所以用数组的方式
+                    // props 接受的值不可以在子组件中修改
+                    props:["val"],
+                    methods:{
+                        addFun(){
+                            this.num2++;
+                            // 子组件通知父组件
+                            // 子组件中可以使用$emit方法触发一个自定义事件
+                            // 会传递多个参数第一个参数是事件名 后面的参数是要传递的参数
+                            this.$emit("child-change",this.num2,this.val);
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

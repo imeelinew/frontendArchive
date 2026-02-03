@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>这是父组件,num1为{{num1}}</h1>
+        <box></box>
+    </div>
+
+    <template id="box-template">
+        <h1 @click="clickHandle">这是子组件,num2为{{num2}}</h1>
+    </template>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                num1: 111
+            },
+            components: {
+
+                "box": {
+                    template: "#box-template",
+                    //组件的data必须是函数,返回对象
+                    data() {
+                        return {
+                            num2: 222
+                        }
+                    },
+                    methods: {
+                        clickHandle() {
+                            this.num2++;
+                        }
+                    }
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

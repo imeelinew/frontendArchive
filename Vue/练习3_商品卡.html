@@ -51,7 +51,7 @@
 <body>
     <div id="app">
         <div class="container">
-            <div class="item-card" v-for="item in productList">
+            <div class="item-card" v-for="item in productList" :key="item.prodName">
                 <img :src="item.pic" alt="">
                 <div class="prod-name">{{item.prodName}}</div>
                 <div class="biref">{{item.brief}}</div>
@@ -68,7 +68,7 @@
             data: {
                 productList: []
             },
-            mounted() {
+            created() {
                 ajax('GET', 'http://shop-api.edu.koobietech.com/prod/tagProdList', (res) => {
                     let result = JSON.parse(res);
                     this.productList = result.data[0].productDtoList;

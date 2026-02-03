@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<div id="app">
+    <box :val="i"></box>
+    <box :val="j"></box>
+</div>
+
+<template id="box-template">
+    <div @click="addFun">{{num2}}</div>
+</template>
+
+<body>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                i: 20,
+                j: 20
+            },
+            methods: {
+
+            },
+            components: {
+                "box": {
+                    template: '#box-template',
+                    props: ["val"],
+                    data() {
+                        return {
+                            num2: this.val
+                        }
+                    },
+                    methods: {
+                        addFun() {
+                            this.num2++;
+                        }
+                    }
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
