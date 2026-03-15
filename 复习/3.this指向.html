@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #box{
+        width: 200px;
+        height: 200px;
+        background: lightgreen;
+    }
+</style>
+<body>
+    <div id="box"></div>
+    <script>
+        let box = document.getElementById("box")
+        // 定时函数 this指向window
+
+        // box.onclick = function(){
+        //     setInterval(function(){
+        //         console.log(this)
+        //     },1000)
+        // }
+        // box.onclick = function(){
+        //     setTimeout(function(){
+        //         console.log(this)
+        //     },1000)
+        // }
+
+        // 对象中函数指向window
+
+        // let obj = {
+        //     name: "zhangsan",
+        //     fn:()=>{
+        //         console.log(this)
+        //     }
+        // }
+        // obj.fn();
+
+        // 普通函数 this指向window
+
+        function fn1(){
+            console.log(this)
+        }
+        fn1()
+    </script>
+</body>
+</html>

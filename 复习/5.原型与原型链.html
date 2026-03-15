@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Fn() {
+            this.name = "zhangsan"
+            this.age = 3
+            // this.address = "beijing"
+            // console.log(this.name)
+
+        }
+        Fn.prototype.address = function () {
+            console.log("beijing")
+        }
+        let f = new Fn();
+
+        f.address();
+
+        function Person(){}
+        var person = new Person()
+
+        console.log(person.__proto__ == Person.prototype)
+        console.log(Person.prototype.constructor == Person)
+        console.log(Object.getPrototypeOf(person) === Person.prototype)
+        
+        
+
+    </script>
+</body>
+
+</html>
