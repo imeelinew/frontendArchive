@@ -1,18 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <div class="leaf"></div>
-    <script>
-        let oLeaf = document.querySelectorAll("leaf")
+<style>
+    img {
+        position: absolute;
+    }
 
-        function Addleaf(){
-            
+    /* body{
+        background: lightsalmon;
+    } */
+</style>
+
+<body>
+    <!-- <img src="./img/1.png" alt=""> -->
+
+    <script>
+        var screenWidth = document.body.clientWidth || document.documentElement.clientWidth
+        var screenHeight = document.body.clientHeight || document.documentElement.clientHeight
+
+        function Leaf() {
+            this.width = Math.floor(Math.random() * 100 + 100)
+            this.top = 0
+            this.left = Math.random() * (screenWidth - this.width)
+            this.urls = './img/' + Math.floor(Math.random() * 4 + 1) + '.png'
+        }
+
+        Leaf.prototype.init = function () {
+            var imgs = document.createElement("img")
+            imgs.src = this.urls
+            imgs.style.width = this.width + 'px'
+            imgs.style.top = this.top + 'px'
+            imgs.style.left = this.left + 'px'
+            document.body.appendChild(imgs)
+            this.newImgs = imgs
+        }
+
+        let leafArr = []
+        for (let i = 0; i < 20; i++) {
+            let leaf = new Leaf()
+            leaf.init()
+            leafArr.push(leaf)
+        }
+
+        Leaf.prototype.fall = function () {
+            setTimeout(() => {
+                var timer = setInterval(() => {
+                    if (this.newImgs.offsetTop < screenHeight - this.newImgs.offsetHeight){
+                        this.newImgs.style.top = this.newImgs.offsetTop + 10 + 'px'
+                    }else{
+                        clearInterval(timer)
+                    }
+                        
+                }, 20)
+            }, Math.random() * 2000)
+        }
+
+        document.onclick = function () {
+            for (i = 0; i < leafArr.length; i++) {
+                leafArr[i].fall()
+            }
         }
     </script>
 </body>
+
 </html>

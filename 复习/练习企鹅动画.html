@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .penguin-container {
+            width: 300px;
+            height: 400px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            animation: penguin-animation 1.5s linear infinite normal;
+        }
+
+        .body {
+            background-image: url(./img/penguin.png);
+            width: 145px;
+            height: 186px;
+            background-position: 4px 6px;
+            background-repeat: no-repeat;
+            background-size: 216px 186px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -93px;
+            margin-left: -70.5px;
+            z-index: 10;
+        }
+
+        .arms {
+            background-image: url(./img/penguin.png);
+            background-repeat: no-repeat;
+            background-size: 216px 186px;
+        }
+
+        .arm-left {
+            width: 45px;
+            height: 66px;
+            background-position: -139px 6px;
+            position: absolute;
+            top: 190px;
+            left: 55px;
+            animation: left-arm-animation 300ms ease-in-out infinite alternate;
+            transform-origin: top right;
+        }
+
+        .arm-right {
+            width: 55px;
+            height: 90px;
+            background-position: -142px -56px;
+            position: absolute;
+            top: 36%;
+            left: 66%;
+            animation: right-arm-animation 300ms ease-in-out infinite alternate;
+            transform-origin: bottom left;
+        }
+
+        .feet {
+            background-image: url(./img/penguin.png);
+            width: 65px;
+            height: 20px;
+            background-repeat: no-repeat;
+            background-size: 216px 186px;
+            position: absolute;
+
+        }
+
+        .foot-left {
+            background-position: -142px -147px;
+            background-size: 216px 186px;
+            top: 69%;
+            left: 26%;
+            animation: left-foot-animation 1.5s linear infinite normal;
+            transform-origin: top right;
+        }
+
+        .foot-right {
+            background-position: -142px -166px;
+            top: 69%;
+            left: 54%;
+            animation: right-foot-animation 1.5s linear infinite normal;
+            transform-origin: bottom left;
+        }
+
+        @keyframes right-foot-animation {
+
+            0%,
+            5% {
+                transform: rotate(0);
+            }
+
+            15% {
+                transform: rotate(15deg);
+            }
+
+            20% {
+                transform: rotate(0);
+            }
+
+            25% {
+                transform: rotate(15deg);
+            }
+
+            30% {
+                transform: rotate(0);
+            }
+
+            35% {
+                transform: rotate(15deg);
+            }
+
+            40%,
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        @keyframes left-foot-animation {
+
+            0%,
+            5% {
+                transform: rotate(0);
+            }
+
+            15% {
+                transform: rotate(-15deg);
+            }
+
+            20% {
+                transform: rotate(0);
+            }
+
+            25% {
+                transform: rotate(-15deg);
+            }
+
+            30% {
+                transform: rotate(0);
+            }
+
+            35% {
+                transform: rotate(-15deg);
+            }
+
+            40%,
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+
+        @keyframes right-arm-animation {
+            from {
+                transform: rotate(0);
+            }
+
+            to {
+                transform: rotate(-5deg);
+            }
+        }
+
+        @keyframes left-arm-animation {
+            from {
+                transform: rotate(0);
+            }
+
+            to {
+                transform: rotate(5deg);
+            }
+        }
+
+        @keyframes penguin-animation {
+
+            /*
+            0 - 10 起跳到静止
+            10 -40 空中静止
+            40 - 50 落下
+            50 - 100 完全静止 
+             */
+
+            0% {
+                transform: translateY(0) scaleX(1);
+            }
+
+            2.5% {
+                transform: scaleX(1.1);
+            }
+
+            10% {
+                transform: translateY(-10%);
+            }
+
+            40% {
+                transform: translateY(-10%) scaleX(1);
+            }
+
+            50% {
+                transform: translateY(0) scaleX(1.1);
+            }
+
+            55% {
+                transform: translateY(0) scaleX(1);
+            }
+
+            100% {
+                transform: translateY(0) scaleX(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="penguin-container">
+        <div class="body"></div>
+        <div class="arm-left arms"></div>
+        <div class="arm-right arms"></div>
+        <div class="foot-left feet"></div>
+        <div class="foot-right feet"></div>
+    </div>
+</body>
+
+</html>

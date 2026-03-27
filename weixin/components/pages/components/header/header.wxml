@@ -1,0 +1,2 @@
+<!--pages/components/header/header.wxml-->
+<view class="header"><text>我是header</text></view>

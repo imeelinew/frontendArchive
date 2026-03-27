@@ -1,0 +1,9 @@
+/* pages/components/header/header.wxss */
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300rpx;
+  width: 100%;
+  background: lightgreen;
+}

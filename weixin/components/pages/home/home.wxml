@@ -1,0 +1,55 @@
+<!--pages/home/home.wxml-->
+<header></header>
+<text>首页</text>
+<template name="aa">
+  <view>
+    <text>调用这段文字说明引用成功</text>
+    我叫{{name}}
+  </view>
+</template>
+<!-- <view class="container">container</view>
+<view wx:for="{{person}}" wx:key="index" wx:for-item="item">
+  <view>
+    {{index+1}}--{{item.name}}--{{item.age}}
+  </view>
+
+  <view wx:if="{{item.age < 18}}">未成年</view>
+  <view wx:elif="{{item.age == 18}}">刚好成年</view>
+  <view wx:else="{{item.age > 18}}">成年</view>
+</view>
+
+<view class="container2"><text>看到说明css调用成功</text></view>
+<view class="box" catch:tap="handleBox">
+  <view class="innerBox" catch:tap="handleInnerBox"></view>
+</view> -->
+<!-- <view class="box" bind:tap="handleBox">
+  <view class="innerBox" bind:tap="handleInnerBox"></view>
+</view> -->
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{background}}" wx:key="*this">
+    <swiper-item>
+      <view class="swiper-item {{item}}"></view>
+    </swiper-item>
+  </block>
+</swiper>
+<view class="page-section-spacing">
+<scroll-view class="scroll-view_H" scroll-x="true" bindscroll="scroll" style="width: 100%">
+  <view id="demo1" class="scroll-view-item_H demo-text-1"></view>
+  <view id="demo2" class="scroll-view-item_H demo-text-2"></view>
+  <view id="demo3" class="scroll-view-item_H demo-text-3"></view>
+  <view id="demo1" class="scroll-view-item_H demo-text-1"></view>
+  <view id="demo2" class="scroll-view-item_H demo-text-2"></view>
+  <view id="demo3" class="scroll-view-item_H demo-text-3"></view>
+  <view id="demo1" class="scroll-view-item_H demo-text-1"></view>
+  <view id="demo2" class="scroll-view-item_H demo-text-2"></view>
+  <view id="demo3" class="scroll-view-item_H demo-text-3"></view>
+  <view id="demo1" class="scroll-view-item_H demo-text-1"></view>
+  <view id="demo2" class="scroll-view-item_H demo-text-2"></view>
+  <view id="demo3" class="scroll-view-item_H demo-text-3"></view>
+</scroll-view>
+</view>
+<van-button type="primary">主要按钮</van-button>
+<van-button type="success">成功按钮</van-button>
+<van-button type="default">默认按钮</van-button>
+<van-button type="danger">危险按钮</van-button>
+<van-button type="warning">警告按钮</van-button>

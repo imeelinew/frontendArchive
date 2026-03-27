@@ -1,0 +1,5 @@
+<!--pages/my/my.wxml-->
+<import src="/pages/home/home"/>
+<template is="aa" data="{{name: '张三'}}"></template>
+<template is="aa" data="{{name: '李四'}}"></template>
+<template is="aa" data="{{name: '王五'}}"></template>

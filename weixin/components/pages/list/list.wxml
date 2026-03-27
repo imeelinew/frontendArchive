@@ -1,0 +1,6 @@
+<!--pages/list/list.wxml-->
+<text>列表</text>
+
+<view><include src="../home/home"></include></view>
+<view><include src="../home/home"></include></view>
+<view><include src="../home/home"></include></view>

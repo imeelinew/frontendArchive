@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .box {
+        width: 200px;
+        height: 200px;
+        background: lightgreen;
+        text-align: center;
+        color: black;
+    }
+</style>
+
+<body>
+    <div class="box"></div>
+    <script>
+        let oBox = document.querySelector(".box")
+        let number = 0
+
+        function CountMain() {
+            oBox.innerText = number++;
+        }
+        function debounce(fn, delay) {
+            var timer = null
+            return function () {
+                if (timer) {
+                    clearTimeout(timer)
+                }
+                timer = setTimeout(function () {
+                    fn()
+                }, delay)
+            }
+        }
+
+        oBox.addEventListener('click', debounce(CountMain, 200))
+    </script>
+</body>
+
+</html>

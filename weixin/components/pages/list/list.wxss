@@ -1,0 +1,4 @@
+/* pages/list/list.wxss */
+.container2{
+  color: lightcoral;
+}
