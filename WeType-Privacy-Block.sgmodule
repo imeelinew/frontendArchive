@@ -1,0 +1,110 @@
+#!name=微信输入法 隐私拦截 (WeType Privacy Block)
+#!desc=拦截微信输入法 (com.tencent.wetype) 在 macOS / iOS 后台的遥测、词库同步、皮肤资源、灯塔/Bugly/MTA 等数据上报。基于腾讯隐私政策和公开抓包/研究整理。
+#!author=Surge module · WeType Privacy Block
+#!category=隐私
+#!system=ios,mac
+#!date=2026-04-27
+
+# ============================================================================
+# 使用说明
+# ----------------------------------------------------------------------------
+# 1. 把本文件保存为 .sgmodule 后导入 Surge → 模块。
+# 2. 默认策略采用 REJECT-DROP，避免被频繁重试的客户端打满内存。
+# 3. 三段规则按需取舍：
+#      [A] 微信输入法专属业务域 —— 阻断词库/皮肤/AI/同步/账号
+#      [B] 腾讯通用遥测 SDK —— 灯塔 / Bugly / MTA / TPS / Trace
+#      [C] 进程级一刀切 —— 直接断掉整个 wechatime 进程的所有出站
+# 4. 如果只想"用本地输入但不让它上报"，启用 [A] 中的同步/AI 行 + [B] 全部，
+#    保留 [A] 中的 update/cdn 行（升级仍可走）。
+# 5. 如果坚决不让它联网（仅本地拼音），把 [C] 整段开启即可。
+# 6. 进程名在不同版本可能是 wechatime / WeChatInputMethod / wetype，
+#    用 Surge → 请求日志 或 Activity Monitor 实测后保留实际命中的那条。
+# 7. 该模块不需要 MITM、不需要解密 HTTPS——纯出站拒绝即可生效。
+# ============================================================================
+
+[Rule]
+
+# ---------------------------------------------------------------- [A] 业务域
+# 微信输入法账号、登录、跨设备同步、AI 回复、皮肤/表情/词包下载、拼写 Plus 云联想
+DOMAIN-SUFFIX,wetype.weixin.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,wetype.wxqcloud.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,z.weixin.qq.com,REJECT-DROP
+DOMAIN-KEYWORD,wetype,REJECT-DROP
+DOMAIN-KEYWORD,weixin-ime,REJECT-DROP
+DOMAIN-KEYWORD,wxinput,REJECT-DROP
+DOMAIN-KEYWORD,wxime,REJECT-DROP
+
+# 微信生态自带 DoH（绕过系统 DNS，必须在出站层拦）
+DOMAIN-SUFFIX,dns.weixin.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,dns.weixin.qq.com.cn,REJECT-DROP
+DOMAIN-SUFFIX,short.weixin.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,long.weixin.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,minorshort.weixin.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,szshort.weixin.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,szextshort.weixin.qq.com,REJECT-DROP
+
+# 微信账号/登录态（输入法登录走的也是 WeChat 通用通道）
+# 注释掉的行如果你同时不希望 IME 调用 WeChat 登录，请取消注释
+# DOMAIN-SUFFIX,login.weixin.qq.com,REJECT-DROP
+
+# 资源/皮肤/词包 CDN（保留可让其安静升级；如需彻底封死，取消注释）
+# DOMAIN-SUFFIX,dldir1.qq.com,REJECT-DROP
+# DOMAIN-SUFFIX,dldir1v6.qq.com,REJECT-DROP
+# DOMAIN-SUFFIX,res.wx.qq.com,REJECT-DROP
+# DOMAIN-SUFFIX,mmbiz.qpic.cn,REJECT-DROP
+
+
+# ---------------------------------------------------------------- [B] 通用遥测 SDK
+# 腾讯灯塔（行为分析，所有腾讯 App 默认内嵌）
+DOMAIN-SUFFIX,beacon.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,beacon.tencent.com,REJECT-DROP
+DOMAIN-SUFFIX,otheve.beacon.qq.com,REJECT-DROP
+DOMAIN,oth.eve.mdt.qq.com,REJECT-DROP
+DOMAIN,oth.str.mdt.qq.com,REJECT-DROP
+
+# Bugly（崩溃 + 卡顿 + 启动性能上报）
+DOMAIN-SUFFIX,bugly.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,bugly.tds.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,rqd.uu.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,rmonitor.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,android.bugly.qq.com,REJECT-DROP
+
+# MTA / 移动统计 / 监控 trace
+DOMAIN-SUFFIX,mta.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,pingma.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,h.trace.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,trace.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,tpstelemetry.tencent.com,REJECT-DROP
+DOMAIN-SUFFIX,report.urlsec.qq.com,REJECT-DROP
+
+# TBS / X5 / WUP / 浏览内核与小程序遥测（输入法的"AI 一下"会用到）
+DOMAIN-SUFFIX,wup.imtt.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,3gimg.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,tbs.imtt.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,log.tbs.qq.com,REJECT-DROP
+
+# 通用错误回收 / 哨兵
+DOMAIN-SUFFIX,sngapm.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,aegis.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,monitor.qq.com,REJECT-DROP
+
+
+# ---------------------------------------------------------------- [C] 进程级一刀切（最严）
+# 默认注释掉。开启任意一条即可让微信输入法整体断网（仅可用本地拼音）。
+# 进程名因版本而异，建议先在 Surge → 最近请求 中确认实际进程名再启用。
+# PROCESS-NAME,wechatime,REJECT-DROP
+# PROCESS-NAME,WeChatInputMethod,REJECT-DROP
+# PROCESS-NAME,wetype,REJECT-DROP
+# PROCESS-NAME,com.tencent.wetype,REJECT-DROP
+
+
+# ============================================================================
+# 验证方法
+# ----------------------------------------------------------------------------
+# 在 Surge 里打开"出站日志"或"请求"面板，触发以下行为各一次：
+#   · 切换到微信输入法、输入若干中文（应只剩本地引擎）
+#   · 打开输入法设置 → 账号 / 同步 / 皮肤 / AI 回复
+#   · 退出登录再登录
+# 然后在日志里看是否还有 *.qq.com / *.tencent.com 走 DIRECT。如果有，
+# 把对应域名补到 [A] 或 [B] 末尾即可。
+# ============================================================================

@@ -9,15 +9,14 @@
 
 <body>
     <script>
-        for (var i = 0; i < 3; i++) {
-            setTimeout(function () {
-                console.log(i)
-            }, 1000)
+        const user = {
+            name: 'Eli',
+            age: 21,
+            city: 'Singapore'
         }
-
-        // 你以为输出：0 1 2
-        // 实际输出：3 3 3
-
+        for (const key in user){
+            console.log(key)
+        }
     </script>
 </body>
 
