@@ -9,7 +9,7 @@
 # 使用说明
 # ----------------------------------------------------------------------------
 # 1. 把本文件保存为 .sgmodule 后导入 Surge → 模块。
-# 2. 默认策略采用 REJECT-DROP，避免被频繁重试的客户端打满内存。
+# 2. 默认策略采用 REJECT，避免被频繁重试的客户端打满内存。
 # 3. 三段规则按需取舍：
 #      [A] 微信输入法专属业务域 —— 阻断词库/皮肤/AI/同步/账号
 #      [B] 腾讯通用遥测 SDK —— 灯塔 / Bugly / MTA / TPS / Trace
@@ -26,76 +26,76 @@
 
 # ---------------------------------------------------------------- [A] 业务域
 # 微信输入法账号、登录、跨设备同步、AI 回复、皮肤/表情/词包下载、拼写 Plus 云联想
-DOMAIN-SUFFIX,wetype.weixin.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,wetype.wxqcloud.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,z.weixin.qq.com,REJECT-DROP
-DOMAIN-KEYWORD,wetype,REJECT-DROP
-DOMAIN-KEYWORD,weixin-ime,REJECT-DROP
-DOMAIN-KEYWORD,wxinput,REJECT-DROP
-DOMAIN-KEYWORD,wxime,REJECT-DROP
+DOMAIN-SUFFIX,wetype.weixin.qq.com,REJECT
+DOMAIN-SUFFIX,wetype.wxqcloud.qq.com,REJECT
+DOMAIN-SUFFIX,z.weixin.qq.com,REJECT
+DOMAIN-KEYWORD,wetype,REJECT
+DOMAIN-KEYWORD,weixin-ime,REJECT
+DOMAIN-KEYWORD,wxinput,REJECT
+DOMAIN-KEYWORD,wxime,REJECT
 
 # 微信生态自带 DoH（绕过系统 DNS，必须在出站层拦）
-DOMAIN-SUFFIX,dns.weixin.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,dns.weixin.qq.com.cn,REJECT-DROP
-DOMAIN-SUFFIX,short.weixin.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,long.weixin.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,minorshort.weixin.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,szshort.weixin.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,szextshort.weixin.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,dns.weixin.qq.com,REJECT
+DOMAIN-SUFFIX,dns.weixin.qq.com.cn,REJECT
+DOMAIN-SUFFIX,short.weixin.qq.com,REJECT
+DOMAIN-SUFFIX,long.weixin.qq.com,REJECT
+DOMAIN-SUFFIX,minorshort.weixin.qq.com,REJECT
+DOMAIN-SUFFIX,szshort.weixin.qq.com,REJECT
+DOMAIN-SUFFIX,szextshort.weixin.qq.com,REJECT
 
 # 微信账号/登录态（输入法登录走的也是 WeChat 通用通道）
 # 注释掉的行如果你同时不希望 IME 调用 WeChat 登录，请取消注释
-# DOMAIN-SUFFIX,login.weixin.qq.com,REJECT-DROP
+# DOMAIN-SUFFIX,login.weixin.qq.com,REJECT
 
 # 资源/皮肤/词包 CDN（保留可让其安静升级；如需彻底封死，取消注释）
-# DOMAIN-SUFFIX,dldir1.qq.com,REJECT-DROP
-# DOMAIN-SUFFIX,dldir1v6.qq.com,REJECT-DROP
-# DOMAIN-SUFFIX,res.wx.qq.com,REJECT-DROP
-# DOMAIN-SUFFIX,mmbiz.qpic.cn,REJECT-DROP
+# DOMAIN-SUFFIX,dldir1.qq.com,REJECT
+# DOMAIN-SUFFIX,dldir1v6.qq.com,REJECT
+# DOMAIN-SUFFIX,res.wx.qq.com,REJECT
+# DOMAIN-SUFFIX,mmbiz.qpic.cn,REJECT
 
 
 # ---------------------------------------------------------------- [B] 通用遥测 SDK
 # 腾讯灯塔（行为分析，所有腾讯 App 默认内嵌）
-DOMAIN-SUFFIX,beacon.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,beacon.tencent.com,REJECT-DROP
-DOMAIN-SUFFIX,otheve.beacon.qq.com,REJECT-DROP
-DOMAIN,oth.eve.mdt.qq.com,REJECT-DROP
-DOMAIN,oth.str.mdt.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,beacon.qq.com,REJECT
+DOMAIN-SUFFIX,beacon.tencent.com,REJECT
+DOMAIN-SUFFIX,otheve.beacon.qq.com,REJECT
+DOMAIN,oth.eve.mdt.qq.com,REJECT
+DOMAIN,oth.str.mdt.qq.com,REJECT
 
 # Bugly（崩溃 + 卡顿 + 启动性能上报）
-DOMAIN-SUFFIX,bugly.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,bugly.tds.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,rqd.uu.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,rmonitor.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,android.bugly.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,bugly.qq.com,REJECT
+DOMAIN-SUFFIX,bugly.tds.qq.com,REJECT
+DOMAIN-SUFFIX,rqd.uu.qq.com,REJECT
+DOMAIN-SUFFIX,rmonitor.qq.com,REJECT
+DOMAIN-SUFFIX,android.bugly.qq.com,REJECT
 
 # MTA / 移动统计 / 监控 trace
-DOMAIN-SUFFIX,mta.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,pingma.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,h.trace.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,trace.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,tpstelemetry.tencent.com,REJECT-DROP
-DOMAIN-SUFFIX,report.urlsec.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,mta.qq.com,REJECT
+DOMAIN-SUFFIX,pingma.qq.com,REJECT
+DOMAIN-SUFFIX,h.trace.qq.com,REJECT
+DOMAIN-SUFFIX,trace.qq.com,REJECT
+DOMAIN-SUFFIX,tpstelemetry.tencent.com,REJECT
+DOMAIN-SUFFIX,report.urlsec.qq.com,REJECT
 
 # TBS / X5 / WUP / 浏览内核与小程序遥测（输入法的"AI 一下"会用到）
-DOMAIN-SUFFIX,wup.imtt.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,3gimg.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,tbs.imtt.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,log.tbs.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,wup.imtt.qq.com,REJECT
+DOMAIN-SUFFIX,3gimg.qq.com,REJECT
+DOMAIN-SUFFIX,tbs.imtt.qq.com,REJECT
+DOMAIN-SUFFIX,log.tbs.qq.com,REJECT
 
 # 通用错误回收 / 哨兵
-DOMAIN-SUFFIX,sngapm.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,aegis.qq.com,REJECT-DROP
-DOMAIN-SUFFIX,monitor.qq.com,REJECT-DROP
+DOMAIN-SUFFIX,sngapm.qq.com,REJECT
+DOMAIN-SUFFIX,aegis.qq.com,REJECT
+DOMAIN-SUFFIX,monitor.qq.com,REJECT
 
 
 # ---------------------------------------------------------------- [C] 进程级一刀切（最严）
 # 默认注释掉。开启任意一条即可让微信输入法整体断网（仅可用本地拼音）。
 # 进程名因版本而异，建议先在 Surge → 最近请求 中确认实际进程名再启用。
-# PROCESS-NAME,wechatime,REJECT-DROP
-# PROCESS-NAME,WeChatInputMethod,REJECT-DROP
-# PROCESS-NAME,wetype,REJECT-DROP
-# PROCESS-NAME,com.tencent.wetype,REJECT-DROP
+# PROCESS-NAME,wechatime,REJECT
+# PROCESS-NAME,WeChatInputMethod,REJECT
+# PROCESS-NAME,wetype,REJECT
+# PROCESS-NAME,com.tencent.wetype,REJECT
 
 
 # ============================================================================
