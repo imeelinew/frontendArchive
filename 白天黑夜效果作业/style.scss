@@ -1,0 +1,73 @@
+.box {
+    width: 750px;
+    height: 1206px;
+    border: 1px solid black;
+    margin: 0 auto;
+    position: relative;
+    // overflow: hidden;
+
+    .bg1 {
+        position: absolute;
+    }
+
+    .island1 {
+        position: absolute;
+        top: 530px;
+        left: 50px;
+    }
+
+    .txt2 {
+        position: absolute;
+        top: 80px;
+        left: 50px;
+    }
+
+    .white-cloud1 {
+        position: absolute;
+        top: 359px;
+        left: 244px;
+    }
+
+    .white-cloud2 {
+        position: absolute;
+        top: 540px;
+        left: 80px;
+    }
+
+    .white-cloud3 {
+        position: absolute;
+        top: 500px;
+        left: 550px;
+    }
+
+    .sunBox {
+        width: 1000px;
+        height: 1000px;
+        position: absolute;
+        left: -100px;
+        top: 600px;
+        border-radius: 50%;
+        border: 1px solid red;
+        // transform: rotate(45deg); //展示功能
+        animation: sunRotate 5s linear infinite;
+
+        .sun {
+            z-index: 10;
+        }
+    }
+
+    @keyframes sunRotate {
+        0% {
+            transform: rotate(180deg);
+        }
+
+        50% {
+            transform: rotate(270deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+}
