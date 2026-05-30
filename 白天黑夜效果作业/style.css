@@ -4,65 +4,361 @@
   border: 1px solid black;
   margin: 0 auto;
   position: relative;
+  overflow: hidden;
 }
 
 .box .bg1 {
   position: absolute;
+  z-index: 1;
+}
+
+.box .bg2 {
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+  animation: nightShow 12s linear infinite;
 }
 
 .box .island1 {
   position: absolute;
   top: 530px;
   left: 50px;
+  z-index: 8;
 }
 
 .box .txt2 {
   position: absolute;
   top: 80px;
   left: 50px;
+  z-index: 9;
+}
+
+.box .star {
+  position: absolute;
+  z-index: 3;
+  opacity: 0;
+  animation: starTwinkle 12s linear infinite;
+}
+
+.box .star1 {
+  width: 125px;
+  top: 180px;
+  left: 70px;
+}
+
+.box .star2 {
+  width: 96px;
+  top: 285px;
+  left: 585px;
+}
+
+.box .star3 {
+  width: 36px;
+  top: 160px;
+  left: 520px;
+}
+
+.box .star4 {
+  width: 36px;
+  top: 380px;
+  left: 165px;
+}
+
+.box .star5 {
+  width: 31px;
+  top: 250px;
+  left: 345px;
+}
+
+.box .star6 {
+  width: 40px;
+  top: 420px;
+  left: 610px;
+}
+
+.box .star7 {
+  width: 10px;
+  top: 110px;
+  left: 315px;
+}
+
+.box .star8 {
+  width: 10px;
+  top: 335px;
+  left: 505px;
 }
 
 .box .white-cloud1 {
   position: absolute;
   top: 359px;
   left: 244px;
+  width: 185px;
+  height: 67px;
+  z-index: 6;
+  animation: cloudFloat1 4s ease-in-out infinite, whiteCloudShow 12s linear infinite;
 }
 
 .box .white-cloud2 {
   position: absolute;
   top: 540px;
   left: 80px;
+  width: 131px;
+  height: 61px;
+  z-index: 6;
+  animation: cloudFloat2 5s ease-in-out infinite, whiteCloudShow 12s linear infinite;
 }
 
 .box .white-cloud3 {
   position: absolute;
   top: 500px;
   left: 550px;
+  width: 97px;
+  height: 45px;
+  z-index: 6;
+  animation: cloudFloat3 4.5s ease-in-out infinite, whiteCloudShow 12s linear infinite;
+}
+
+.box .black-cloud1 {
+  position: absolute;
+  top: 359px;
+  left: 244px;
+  width: 185px;
+  height: 67px;
+  z-index: 7;
+  opacity: 0;
+  animation: cloudFloat1 4s ease-in-out infinite, blackCloudShow 12s linear infinite;
+}
+
+.box .black-cloud2 {
+  position: absolute;
+  top: 540px;
+  left: 80px;
+  width: 131px;
+  height: 61px;
+  z-index: 7;
+  opacity: 0;
+  animation: cloudFloat2 5s ease-in-out infinite, blackCloudShow 12s linear infinite;
+}
+
+.box .black-cloud3 {
+  position: absolute;
+  top: 500px;
+  left: 550px;
+  width: 97px;
+  height: 45px;
+  z-index: 7;
+  opacity: 0;
+  animation: cloudFloat3 4.5s ease-in-out infinite, blackCloudShow 12s linear infinite;
 }
 
 .box .sunBox {
-  width: 1000px;
-  height: 1000px;
+  width: 1300px;
+  height: 1300px;
   position: absolute;
-  left: -100px;
-  top: 600px;
+  left: -275px;
+  top: 315px;
   border-radius: 50%;
-  border: 1px solid red;
-  animation: sunRotate 5s linear infinite;
+  z-index: 4;
+  animation: sunRotate 12s linear infinite;
 }
 
 .box .sunBox .sun {
-  z-index: 10;
+  width: 106px;
+  height: 106px;
+  position: absolute;
+  left: 0;
+  top: 597px;
+}
+
+.box .moonBox {
+  width: 1300px;
+  height: 1300px;
+  position: absolute;
+  left: -275px;
+  top: 315px;
+  border-radius: 50%;
+  z-index: 5;
+  opacity: 0;
+  animation: moonRotate 12s linear infinite;
+}
+
+.box .moonBox .moon {
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  left: 0;
+  top: 605px;
+  animation: moonKeepStill 12s linear infinite;
 }
 
 @keyframes sunRotate {
   0% {
-    transform: rotate(180deg);
+    transform: rotate(0deg);
+    opacity: 0;
+  }
+  2% {
+    transform: rotate(7.2deg);
+    opacity: 1;
+  }
+  49% {
+    transform: rotate(176.4deg);
+    opacity: 1;
   }
   50% {
-    transform: rotate(270deg);
+    transform: rotate(180deg);
+    opacity: 0;
   }
   100% {
-    transform: rotate(360deg);
+    transform: rotate(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes moonRotate {
+  0%,
+  50% {
+    transform: rotate(0deg);
+    opacity: 0;
+  }
+  52% {
+    transform: rotate(7.2deg);
+    opacity: 1;
+  }
+  98% {
+    transform: rotate(172.8deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes moonKeepStill {
+  0%,
+  50% {
+    transform: rotate(0deg);
+  }
+  52% {
+    transform: rotate(-7.2deg);
+  }
+  98% {
+    transform: rotate(-172.8deg);
+  }
+  100% {
+    transform: rotate(-180deg);
+  }
+}
+
+@keyframes nightShow {
+  0%,
+  38% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.45;
+  }
+  62%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes whiteCloudShow {
+  0%,
+  38% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+  62%,
+  88% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blackCloudShow {
+  0%,
+  38% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.45;
+  }
+  62%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes starTwinkle {
+  0%,
+  50% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  58% {
+    opacity: 0.45;
+    transform: scale(0.95);
+  }
+  66% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  74% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  82% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+  90% {
+    opacity: 0.65;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes cloudFloat1 {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(18px);
+  }
+}
+
+@keyframes cloudFloat2 {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-14px);
+  }
+}
+
+@keyframes cloudFloat3 {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(16px);
   }
 }

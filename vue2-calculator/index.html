@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue2计算器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="calculator">
+            <div class="display">{{ display }}</div>
+            <div class="buttons">
+                <div class="btn-row">
+                    <div class="btn" @click="clear()">AC</div>
+                    <div class="btn" @click="deleteDigit()">DEL</div>
+                    <div class="btn" @click="percent()">%</div>
+                    <div class="primary-btn" @click="selectOperator('/')">/</div>
+                </div>
+                <div class="btn-row">
+                    <div class="btn" @click="inputDigit('7')">7</div>
+                    <div class="btn" @click="inputDigit('8')">8</div>
+                    <div class="btn" @click="inputDigit('9')">9</div>
+                    <div class="primary-btn" @click="selectOperator('*')">*</div>
+                </div>
+                <div class="btn-row">
+                    <div class="btn" @click="inputDigit('4')">4</div>
+                    <div class="btn" @click="inputDigit('5')">5</div>
+                    <div class="btn" @click="inputDigit('6')">6</div>
+                    <div class="primary-btn" @click="selectOperator('-')">-</div>
+                </div>
+                <div class="btn-row">
+                    <div class="btn" @click="inputDigit('1')">1</div>
+                    <div class="btn" @click="inputDigit('2')">2</div>
+                    <div class="btn" @click="inputDigit('3')">3</div>
+                    <div class="primary-btn" @click="selectOperator('+')">+</div>
+                </div>
+                <div class="btn-row">
+                    <div class="btn" @click="toggle()">+/-</div>
+                    <div class="btn" @click="inputDigit('0')">0</div>
+                    <div class="btn" @click="inputDot()">.</div>
+                    <div class="primary-btn" @click="equals()">=</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="vue.js">
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
